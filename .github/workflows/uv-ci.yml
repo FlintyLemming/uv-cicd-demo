@@ -26,14 +26,8 @@ jobs:
           path: "~/.cache/uv"
           key: uv-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
 
-      - name: Create virtual environment and install dependencies
-        run: |
-          uv venv .venv
-          .venv/bin/python -m pip install -r requirements.txt
-
       - name: Run tests with pytest
-        run: |
-          .venv/bin/python -m pytest -v
+        run: uv run --with-requirements requirements.txt python -m pytest -v
 
       - name: Demonstrate uv speed (alternative approach)
         if: failure()
